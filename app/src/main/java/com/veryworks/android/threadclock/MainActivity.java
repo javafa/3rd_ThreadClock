@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     CustomView stage;
 
+    boolean runFlag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            while(true){
+            while(runFlag){
                 angle = angle + 1;
                 // 화면의 중앙부터 12시방향으로 직선을 긋는다
                 double angle_temp = angle - 90;
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
 //            super.run();
-            while(true){
+            while(runFlag){
                 stage.postInvalidate();
             }
         }
@@ -134,5 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        runFlag = false; // Thread 를 종료시켜준다.
     }
 }
